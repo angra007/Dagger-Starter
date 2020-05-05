@@ -22,7 +22,6 @@ public interface AppComponent extends AndroidInjector<BaseApplication> {
 
         @BindsInstance
         Builder application(Application application);
-
         AppComponent build();
     }
 }
