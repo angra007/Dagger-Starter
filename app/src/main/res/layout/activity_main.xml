@@ -31,7 +31,7 @@
             android:id="@+id/imageView"
             android:layout_width="305dp"
             android:layout_height="46dp"
-            app:srcCompat="@drawable/ic_continue_watching_selected" />
+             />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
