@@ -1,8 +1,9 @@
 package com.ankitangra.www.dagger_starter.di;
 
-import com.ankitangra.www.dagger_starter.MainActivity;
 import com.ankitangra.www.dagger_starter.R;
+import com.ankitangra.www.dagger_starter.di.auth.AuthModule;
 import com.ankitangra.www.dagger_starter.di.auth.AuthViewModelModule;
+import com.ankitangra.www.dagger_starter.ui.auth.AuthActivity;
 import com.ankitangra.www.dagger_starter.ui.auth.AuthViewModel;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -14,8 +15,8 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector (
-            modules = {AuthViewModelModule.class}
+            modules = {AuthViewModelModule.class, AuthModule.class}
     )
-    abstract MainActivity contributeAuthActivity();
+    abstract AuthActivity contributeAuthActivity();
 
 }
