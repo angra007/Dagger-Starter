@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.ankitangra.www.dagger_starter.R;
 import com.ankitangra.www.dagger_starter.models.User;
@@ -26,6 +27,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
 
     private AuthViewModel viewModel;
     private EditText userId;
+    private ProgressBar progressBar;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -40,18 +42,53 @@ public class AuthActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progressBar = findViewById(R.id.progressBar);
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(AuthViewModel.class);
         subscribeObservers();
         attemptLogin();
     }
 
+    private void showProgressBar ( Boolean isVisible) {
+        if (isVisible) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else  {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     private void subscribeObservers(){
-        viewModel.observeUser().observe(this, new Observer<User>() {
+        viewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
             @Override
-            public void onChanged(User user) {
-                if(user != null){
-                    Log.d(TAG, "onChanged: " + user.getEmail());
+            public void onChanged(AuthResource<User> authResource) {
+                if(authResource != null){
+
+                    switch (authResource.status) {
+                        case LOADING:{
+                            showProgressBar (true);
+                            break;
+                        }
+
+                        case AUTHENTICATED: {
+                            showProgressBar (false);
+                            Log.d(TAG,"Login Success");
+                            break;
+                        }
+
+                        case NOT_AUTHENTICATED: {
+                            showProgressBar (false);
+                            Log.d(TAG,"Not Authenticated");
+                            break;
+                        }
+
+                        case ERROR:{
+                            showProgressBar (false);
+                            Log.d(TAG,"Error");
+                            break;
+                        }
+                    }
+
                 }
             }
         });
