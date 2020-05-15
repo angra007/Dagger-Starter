@@ -1,5 +1,19 @@
-# Dagger-Starter
+# An Sample Android Starter Project Java
 
-This is my Dagger-Starter Project. 
+Language : Java
 
-Dagger version used = "2.22"
+Preconfigured Libraries Used 
+
+* Dagger 
+* Dagger for Android
+* Glide
+* ViewModels
+* LiveData
+* Retrofit 
+* RxJava
+* RxAndroid 
+
+
+
+
+
